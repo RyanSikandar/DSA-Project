@@ -10,13 +10,11 @@ allArticles = []
 counter = 0
 
 for JSON in JSONS:
-    if counter == 0:
-        with open("articles/" + JSON, "r") as article_file:
-            articles = load(article_file)
-            # Load the JSON content from the file
-            for article in articles:
-                allArticles.append(article)
-    counter += 1
+    with open("articles/" + JSON, "r") as article_file:
+        articles = load(article_file)
+        # Load the JSON content from the file
+        for article in articles:
+            allArticles.append(article)
 
 
 with open("allArticles.json", "w") as Dataset:
