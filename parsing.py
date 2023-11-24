@@ -7,15 +7,16 @@ JSONS = listdir("articles")
 # A list to store all the articles
 allArticles = []
 
-counter = 0
-
 for JSON in JSONS:
+    # opens each file one by one
     with open("articles/" + JSON, "r") as article_file:
+        # loads the content of the file in a string
         articles = load(article_file)
-        # Load the JSON content from the file
+        # appends the string to the list containing all of the articles
         for article in articles:
             allArticles.append(article)
 
 
+# creates a file to store all the articles and writes the JSON to the file
 with open("allArticles.json", "w") as Dataset:
     Dataset.write(dumps(articles))
