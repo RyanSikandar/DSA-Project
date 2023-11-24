@@ -21,16 +21,3 @@ for JSON in JSONS:
 
 with open("allArticles.json", "w") as Dataset:
     Dataset.write(dumps(articles))
-
-# objects = []
-# with open("test.json", "r") as test:
-#         data_list = load(test)
-        
-#         for t in data_list:
-#             objects.append(t)
-
-# print(objects)
-
-# with open("tester.json", "w") as file:
-#       file.write(dumps(objects))
-
