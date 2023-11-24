@@ -10,9 +10,9 @@ allArticles = []
 for JSON in JSONS:
     # opens each file one by one
     with open("articles/" + JSON, "r") as article_file:
-        # loads the content of the file in a string
+        # loads the json format in Python Data Structure Format
         articles = load(article_file)
-        # appends the string to the list containing all of the articles
+        # appends the dict to the list containing all of the articles
         for article in articles:
             allArticles.append(article)
 
