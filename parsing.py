@@ -13,7 +13,7 @@ id = 1
 for JSON in JSONS:
     # opens each file one by one
     with open("articles/" + JSON, "r") as article_file:
-        # loads the content of the file in a dict
+        # loads the json format in Python Data Structure Format
         articles = load(article_file)
         # appends the dict to the list containing all of the articles
         for article in articles:
