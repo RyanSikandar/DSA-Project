@@ -7,16 +7,20 @@ from json import load, dumps, loads
 nltk.download('punkt')
 nltk.download('stopwords')
 
-def process_objects(obj_array):
+def process_articles(articles):
+    # get a set of all the predefined stop words of English language
     stop_words = set(stopwords.words('english'))
+    # creates a stemmer object
     ps = PorterStemmer()
 
-    processed_objects = []
+    # a list to store the processed articles
+    processed_articles = []
 
-    for obj in obj_array:
+    # handles all the articles one by one, updates its title and content, and stores it in the list
+    for article in articles:
         # Tokenize content and title
-        content_tokens = word_tokenize(obj['content'])
-        title_tokens = word_tokenize(obj['title'])
+        content_tokens = word_tokenize(article['content'])
+        title_tokens = word_tokenize(article['title'])
 
         # Remove stop words from content
         content_filtered = []
@@ -30,27 +34,35 @@ def process_objects(obj_array):
             if word.lower() not in stop_words:
                 title_filtered.append(word)
 
+        # tokens that we don't need for query processing such as punctuations and special symbols
         unwanted_tokens = ['!', '"', '#', '$', '%', '&', "'", '(', ')', '*', '+', ',', '-', '.', '/', ':', ';', '<', '=', '>', '?', '@', '[', '\\', ']', '^', '_', '`', '{', '|', '}', '~']
+
+        # Perform stemming on content
+        content_stemmed = []
+        for word in content_filtered:
+            if word not in unwanted_tokens:
+                content_stemmed.append(ps.stem(word))
 
         # Perform stemming on title
         title_stemmed = []
         for word in title_filtered:
-            title_stemmed.append(ps.stem(word))
+            if word not in unwanted_tokens:
+                title_stemmed.append(ps.stem(word))
 
         # Update object with processed content and title
-        obj['content'] = ' '.join(content_stemmed)
-        obj['title'] = ' '.join(title_stemmed)
+        article['content'] = ' '.join(content_stemmed)
+        article['title'] = ' '.join(title_stemmed)
 
-        processed_objects.append(obj)
+        processed_articles.append(article)
 
-    return processed_objects
+    return processed_articles
 
  # opens each file one by one
 with open("allArticles.json", "r") as article_file:
         # loads the json format in Python Data Structure Format
         articles = load(article_file)
 
-processed_articles = process_objects(articles)
+processed_articles = process_articles(articles)
 
 with open("allArticles.json", "w") as dataset:
     dataset.write(dumps(processed_articles))
