@@ -49,7 +49,7 @@ def process_articles(articles):
             if word not in unwanted_tokens:
                 title_stemmed.append(ps.stem(word))
 
-        # Update object with processed content and title
+        # Update article with processed content and title
         article['content'] = ' '.join(content_stemmed)
         article['title'] = ' '.join(title_stemmed)
 
