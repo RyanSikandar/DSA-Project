@@ -7,16 +7,24 @@ JSONS = listdir("articles")
 # A list to store all the articles
 allArticles = []
 
+# a unique integral id to assign to each of the articles
+id = 1
+
 for JSON in JSONS:
     # opens each file one by one
     with open("articles/" + JSON, "r") as article_file:
-        # loads the content of the file in a string
+        # loads the content of the file in a dict
         articles = load(article_file)
-        # appends the string to the list containing all of the articles
+        # appends the dict to the list containing all of the articles
         for article in articles:
+            # changes the article id to an integer
+            article["id"] = id
+            # increments the id counter
+            id += 1
+            # add the article to the list containing all of the parsed articles
             allArticles.append(article)
 
 
 # creates a file to store all the articles and writes the JSON to the file
 with open("allArticles.json", "w") as Dataset:
-    Dataset.write(dumps(articles))
+    Dataset.write(dumps(allArticles))
