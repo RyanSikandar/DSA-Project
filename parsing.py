@@ -11,6 +11,8 @@ allArticles = []
 id = 1
 
 for JSON in JSONS:
+    if id >= 10:
+        break
     # opens each file one by one
     with open("articles/" + JSON, "r") as article_file:
         # loads the json format in Python Data Structure Format
@@ -26,5 +28,5 @@ for JSON in JSONS:
 
 
 # creates a file to store all the articles and writes the JSON to the file
-with open("allArticles.json", "w") as Dataset:
+with open("dataset.json", "w") as Dataset:
     Dataset.write(dumps(allArticles))

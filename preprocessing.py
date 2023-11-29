@@ -58,12 +58,11 @@ def process_articles(articles):
     return processed_articles
 
  # opens each file one by one
-with open("allArticles.json", "r") as article_file:
+with open("dataset.json", "r") as article_file:
         # loads the json format in Python Data Structure Format
         articles = load(article_file)
 
 processed_articles = process_articles(articles)
 
-with open("allArticles.json", "w") as dataset:
+with open("dataset.json", "w") as dataset:
     dataset.write(dumps(processed_articles))
-
