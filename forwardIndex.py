@@ -2,7 +2,11 @@ from nltk.tokenize import word_tokenize
 from json import load, dumps
 from LexiconModule import Lexicon
 
-forwardIndex = {}
+forwardIndex = {
+    "1": {
+        "2": [-1, 24]
+    }
+}
 
 with open("dataset.json", "r") as dataset:
     articles = load(dataset)
@@ -19,7 +23,7 @@ with open("dataset.json", "r") as dataset:
             forwardIndex[article["id"]][word_id] = []
         for word_id in title_words_ids:
             forwardIndex[article["id"]][word_id].append(0)
-        for index, word_id in enumerate(title_words_ids):
+        for index, word_id in enumerate(content_words_ids):
             forwardIndex[article["id"]][word_id].append(index)
 
 print(forwardIndex)
