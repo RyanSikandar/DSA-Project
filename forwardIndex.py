@@ -18,16 +18,17 @@ with open("dataset.json", "r") as dataset:
         # create an empty dictionary in the forward index for the current article id
         forwardIndex[article["id"]] = {}
         # create empty arrays in the nested dictionary for each distinct word id
-        for word_id in title_words_ids:                                              #Word in Title of an article
-            forwardIndex[article["id"]][title_words_ids[word_id]] = []
-        for word_id in content_words_ids:                                            #Word in content of an article
-            forwardIndex[article["id"]][content_words_ids[word_id]] = []
+        for word_id in title_words_ids:
+            forwardIndex[article["id"]][word_id] = []
+        for word_id in content_words_ids:
+            forwardIndex[article["id"]][word_id] = []
         # add a '0' in the hit list for a word occuring in the title of the article
         for word_id in title_words_ids:
-            forwardIndex[article["id"]][title_words_ids[word_id]].append(-1)
+            forwardIndex[article["id"]][word_id].append(0)
         # add the postion of the word occuring in the content of the article in the hit list
         for index, word_id in enumerate(content_words_ids):
-            forwardIndex[article["id"]][content_words_ids[word_id]].append(index)
+            forwardIndex[article["id"]][word_id].append(index)
+
 # write the forward index to a json file
 with open("forwardIndex.json", "w") as ForwardIndex:
     ForwardIndex.write(dumps(forwardIndex))
