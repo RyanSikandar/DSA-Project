@@ -14,3 +14,5 @@ def Lexicon(word_list):
             word_id_dict[word] = lexiconDict[word]
     #returns the dictionary
     return word_id_dict
+
+# print(Lexicon(["babylon", "bee", "best", "sketch", "develop"]))
