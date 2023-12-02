@@ -14,3 +14,5 @@ def Lexicon(word_list):
             word_ids.append(lexiconDict[word])
     #returns the list
     return word_ids
+
+# print(Lexicon(["babylon", "bee", "best", "sketch", "develop"]))
