@@ -10,7 +10,7 @@ with open("dataset.json", "r") as dataset:
     # load the articles in a dictionary
     articles = load(dataset)
     # iterate through each of the articles
-    for article in articles:
+    for article in articles:                                                    #ARTICLE
         # extract a list of the word ids in the title of the article
         content_words_ids = Lexicon(word_tokenize(article["content"]))
         # extract a list of the word ids in content of the article
@@ -32,3 +32,4 @@ with open("dataset.json", "r") as dataset:
 # write the forward index to a json file
 with open("forwardIndex.json", "w") as ForwardIndex:
     ForwardIndex.write(dumps(forwardIndex))
+
