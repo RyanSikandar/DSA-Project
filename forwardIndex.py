@@ -24,7 +24,7 @@ with open("dataset.json", "r") as dataset:
             forwardIndex[article["id"]][word_id] = []
         # add a '0' in the hit list for a word occuring in the title of the article
         for word_id in title_words_ids:
-            forwardIndex[article["id"]][word_id].append(0)
+            forwardIndex[article["id"]][word_id].append(-1)
         # add the postion of the word occuring in the content of the article in the hit list
         for index, word_id in enumerate(content_words_ids):
             forwardIndex[article["id"]][word_id].append(index)
