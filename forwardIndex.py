@@ -10,7 +10,7 @@ with open("dataset.json", "r") as dataset:
     # load the articles in a dictionary
     articles = load(dataset)
     # iterate through each of the articles
-    for article_id, article in articles:                                                    #ARTICLE
+    for article_id, article in articles.items():                                                    #ARTICLE
         # extract a list of the word ids in the title of the article
         content_words_ids = Lexicon(word_tokenize(article["content"]))
         # extract a list of the word ids in content of the article
