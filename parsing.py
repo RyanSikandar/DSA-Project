@@ -19,12 +19,11 @@ for JSON in JSONS:
         articles = load(article_file)
         # appends the dict to the list containing all of the articles
         for article in articles:
-            # changes the article id to an integer
-            article["id"] = id
+            # add the article to the list containing all of the parsed articles
+            allArticles[id] = article 
             # increments the id counter
             id += 1
-            # add the article to the list containing all of the parsed articles
-            allArticles[article["id"]] = article
+
 
 
 # creates a file to store all the articles and writes the JSON to the file
