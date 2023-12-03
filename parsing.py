@@ -5,7 +5,7 @@ from json import load, dumps, loads
 JSONS = listdir("articles")
 
 # A list to store all the articles
-allArticles = []
+allArticles = {}
 
 # a unique integral id to assign to each of the articles
 id = 1
@@ -24,7 +24,7 @@ for JSON in JSONS:
             # increments the id counter
             id += 1
             # add the article to the list containing all of the parsed articles
-            allArticles.append(article)
+            allArticles[article["id"]] = article
 
 
 # creates a file to store all the articles and writes the JSON to the file
