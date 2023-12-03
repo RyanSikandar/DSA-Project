@@ -6,10 +6,10 @@ invertedIndex = {}
 with open ("forwardIndex.json", "r") as ForwardIndexFile:
     forwardIndex = load(ForwardIndexFile)
     for document_id, words_data in forwardIndex.items():
-        for word_id, hitlist in words_data.items():
+        for word_id, weightage in words_data.items():
             if word_id not in invertedIndex:
                 invertedIndex[word_id] = {}
-            invertedIndex[word_id][document_id] = hitlist
+            invertedIndex[word_id][document_id] = weightage
 
 with open("invertedIndex.json", "w") as InvertedIndexFile:
     InvertedIndexFile.write(dumps(invertedIndex))
