@@ -9,7 +9,7 @@ def calculate_word_id(word):
     word_id = 1
     for index, char in enumerate(word):
         char_value = ord(char) * (index + 1)
-        word_id *= char_value
+        word_id += char_value
     return word_id
 
 

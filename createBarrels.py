@@ -14,12 +14,12 @@ barrel_count = 1
 object_count = 0
 objects = {}
 
-for key in sorted(data.keys()):
+for key in data.keys():
     objects[key] = data[key]
     object_count += 1
 
     # If 2500 objects are reached or it's the last object, create a barrel
-    if object_count == 2500 or key == sorted(data.keys())[-1]:
+    if object_count == 2500 or key == list(data.keys())[-1]:
         barrel_file_name = f"barrels/{list(objects.keys())[0]}-{list(objects.keys())[-1]}.json"
         with open(barrel_file_name, 'w') as barrel_file:
             json.dump(objects, barrel_file, indent=4)

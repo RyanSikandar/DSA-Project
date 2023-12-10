@@ -25,7 +25,7 @@ with open("dataset.json", "r") as dataset:
         # add 5 to the weightage score for a word occuring in the title of the article and add -1 to the hitlist
         for word_id in title_words_ids:
             forwardIndex[article_id][word_id][0] += 5
-            forwardIndex[article_id][word_id][1].append(-1)
+            forwardIndex[article_id][word_id][1].append(-1)                                                                                                                                                                                                                                                
         for index, word_id in enumerate(content_words_ids):
             # add to the weightage score for each occurence of the word in the document
             forwardIndex[article_id][word_id][0] += 1
