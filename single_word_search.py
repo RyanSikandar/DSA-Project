@@ -4,7 +4,7 @@ from lexicon import calculate_word_id
 import time
 
 # Load the barrel data
-with open("barrels\\34-3704.json", "r") as barrel1:
+with open("barrels\\34-4090.json", "r") as barrel1:
     barrel = load(barrel1)
 
 # Get user input
@@ -33,6 +33,6 @@ end_time = time.time()
 # Print results and time taken in milliseconds
 print("Document with maximum value:")
 print("Document:", document_max)
-print("Maximum value:", maximum)
+print("Weight:", maximum)
 time_taken_ms = (end_time - start_time) * 1000  # Convert seconds to milliseconds
 print(f"Time taken: {time_taken_ms:.4f} milliseconds")
