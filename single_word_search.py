@@ -1,6 +1,6 @@
 from json import load
 from lexicon import calculate_word_id
-import numpy as np
+# import numpy as np
 import time
 
 # Load the barrel data
@@ -8,7 +8,7 @@ with open("barrels\\34-3704.json", "r") as barrel1:
     barrel = load(barrel1)
 
 # Get user input
-word_to_search = input("Enter word to search: ")
+word_to_search = input("Enter word to search: ").lower()
 # Measure time taken to find the document with maximum value
 start_time = time.time()
 
