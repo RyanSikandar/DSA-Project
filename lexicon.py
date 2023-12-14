@@ -4,13 +4,13 @@ from nltk.tokenize import word_tokenize
 # a dictionary where the words will be the key and their ids will be the values
 lexicon = {}
 
-# FUNCTION THAT GENERATES IDs FOR WORDS.
+import hashlib
+
 def calculate_word_id(word):
-    word_id = 1
-    for index, char in enumerate(word):
-        char_value = ord(char) * (index + 1)
-        word_id += char_value
-    return word_id
+    word_hash = hashlib.sha256(word.encode()).hexdigest()
+    return int(word_hash, 16)
+
+
 
 # open the json file containing all of the articles
 with open("dataset.json", "r") as dataset:
@@ -21,16 +21,16 @@ with open("dataset.json", "r") as dataset:
         # stores the words of the title and the content in a list
         title = word_tokenize(article["title"])
         content = word_tokenize(article["content"])
-        # iterates through each word, gives it an ID, stores it in the lexicon dictionary 
-        # if it is not already there, and increments the ID counter by 1
+        # '''iterates through each word, gives it an ID, stores it in the lexicon dictionary 
+        # if it is not already there, and increments the ID counter by 1 '''
         for word in title:
-            word_lower = word.lower()  # Convert word to lowercase
-            if word_lower not in lexicon:
-                lexicon[word_lower] = calculate_word_id(word_lower)
+            if not word in lexicon:
+                lexicon[word] = calculate_word_id(word)
         for word in content:
-            word_lower = word.lower()  # Convert word to lowercase
-            if word_lower not in lexicon:
-                lexicon[word_lower] = calculate_word_id(word_lower)
+            if not word in lexicon:
+                lexicon[word] = calculate_word_id(word)
+
+
 
 with open("lexicon.json", "w") as Lexicon:
     Lexicon.write(dumps(lexicon))
