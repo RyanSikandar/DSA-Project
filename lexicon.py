@@ -12,7 +12,6 @@ def calculate_word_id(word):
         word_id += char_value
     return word_id
 
-
 # open the json file containing all of the articles
 with open("dataset.json", "r") as dataset:
     # loads the file into a list
@@ -22,18 +21,16 @@ with open("dataset.json", "r") as dataset:
         # stores the words of the title and the content in a list
         title = word_tokenize(article["title"])
         content = word_tokenize(article["content"])
-        # '''iterates through each word, gives it an ID, stores it in the lexicon dictionary 
-        # if it is not already there, and increments the ID counter by 1 '''
+        # iterates through each word, gives it an ID, stores it in the lexicon dictionary 
+        # if it is not already there, and increments the ID counter by 1
         for word in title:
-            if not word in lexicon:
-                lexicon[word] = calculate_word_id(word)
+            word_lower = word.lower()  # Convert word to lowercase
+            if word_lower not in lexicon:
+                lexicon[word_lower] = calculate_word_id(word_lower)
         for word in content:
-            if not word in lexicon:
-                lexicon[word] = calculate_word_id(word)
-
-
+            word_lower = word.lower()  # Convert word to lowercase
+            if word_lower not in lexicon:
+                lexicon[word_lower] = calculate_word_id(word_lower)
 
 with open("lexicon.json", "w") as Lexicon:
     Lexicon.write(dumps(lexicon))
-        
-
