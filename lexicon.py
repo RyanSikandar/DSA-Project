@@ -25,10 +25,10 @@ with open("dataset.json", "r") as dataset:
         # if it is not already there, and increments the ID counter by 1 '''
         for word in title:
             if not word in lexicon:
-                lexicon[word] = calculate_word_id(word)
+                lexicon[word.lower()] = calculate_word_id(word.lower())
         for word in content:
             if not word in lexicon:
-                lexicon[word] = calculate_word_id(word)
+                lexicon[word.lower()] = calculate_word_id(word.lower())
 
 
 

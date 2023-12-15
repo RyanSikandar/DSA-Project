@@ -1,34 +1,53 @@
-from LexiconModule import calculate_word_id
+from LexiconModule import Lexicon
 from json import load
+import time
 
-word = input("Enter a word to search for: ")
-word_id = calculate_word_id(word)
+# get the query to from the user
+word = input("Enter a word to search for: ").lower()
 
-articles = []
+# starting the clock
+start = time.time()
 
-if word_id >= 34 and word_id <= 3704:
-    with open("barrels/34-3704.json", "r") as barrel:
-        invertedIndex = load(barrel)
-        articlesDictionary = invertedIndex[str(word_id)]
-        articles = sorted(articlesDictionary.keys(), key=lambda x: -articlesDictionary[x][0])
+#retrieving the word id from the lexicon
+word_id = Lexicon(word)
 
-elif word_id >= 3705 and word_id <= 7596:
-    with open("barrels/3705-7596.json", "r") as barrel:
-        invertedIndex = load(barrel)
-        articlesDictionary = invertedIndex[str(word_id)]
-        articles = sorted(articlesDictionary.keys(), key=lambda x: -articlesDictionary[x][0])
+# calculate the barrel index and convert it to a string
+barrel_index = str(word_id % 100)
 
-elif word_id >= 7599 and word_id <= 42193:
-    with open("barrels/7599-42193.json", "r") as barrel:
-        invertedIndex = load(barrel)
-        articlesDictionary = invertedIndex[str(word_id)]
-        articles = sorted(articlesDictionary.keys(), key=lambda x: -articlesDictionary[x][0])
+# append a 0 to the left if the barrel index is a single digit
+if len(barrel_index) == 1:
+    barrel_index = '0' + barrel_index
 
-elif word_id >= 42196 and word_id <= 2676916:
-    with open("barrels/42196-2676916.json", "r") as barrel:
-        invertedIndex = load(barrel)
-        articlesDictionary = invertedIndex[str(word_id)]
-        articles = sorted(articlesDictionary.keys(), key=lambda x: -articlesDictionary[x][0])
+# the path to the required barrel in a string
+barrel_path = "barrels/{}.json".format(barrel_index)
 
+# lists to store article ids and urls
+article_ids = []
+urls = []
 
-print(articles)
+with open(barrel_path, "r") as barrel:
+    # load the barrel in a dictionary
+    inverted_index = load(barrel)
+    # the dictionary stored against the wordID in the inverted index
+    try:
+        articlesDictionary = inverted_index[str(word_id)]
+    except KeyError:
+        print('No matches')
+    # sort the article ids with respect to the weightage of the word in that article in descending order and save them in a list
+    article_ids = sorted(articlesDictionary.keys(), key = lambda x:-articlesDictionary[x][0])
+
+# open the dataset and retrieve the url of each article id while keeping the ranking order intact
+with open('dataset.json', 'r') as datasetFile:
+    dataset = load(datasetFile)
+    for article_id in article_ids:
+        urls.append(dataset[article_id]["url"])
+
+#stopping the clock
+end = time.time()
+
+# printing the result
+for url in urls:
+    print(url)
+
+#printing the time take in milliseconds
+print("Took " + str("%.2f" % ((end - start) * 1000)) + " milliseconds")

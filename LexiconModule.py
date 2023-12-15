@@ -15,3 +15,11 @@ def Lexicon(word_list):
             word_ids.append(lexiconDict.get(word.lower(), -1))
     # returns the list
     return word_ids
+
+def Lexicon(word):
+    # opening the lexicon json file
+    with open("lexicon.json", "r") as LexiconFile:
+        # loading the file into a dictionary
+        lexiconDict = load(LexiconFile)
+        # using get() to handle missing words by providing a default value of -1
+        return (lexiconDict.get(word.lower(), -1))
