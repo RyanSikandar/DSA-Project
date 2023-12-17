@@ -1,5 +1,5 @@
 from nltk.tokenize import word_tokenize
-from json import load, dumps
+from json import load, dumps, dump
 from LexiconModule import Lexicon
 
 # make an empty dictionary containing the forward index
@@ -11,10 +11,14 @@ with open("dataset.json", "r") as dataset:
     articles = load(dataset)
     # iterate through each of the articles
     for article_id, article in articles.items():                                                    #ARTICLE
+        #tokenize the article content
+        tokenized_content = word_tokenize(article["content"])
+        # tokenize the article title
+        tokenized_title = word_tokenize(article["title"])
         # extract a list of the word ids in the title of the article
-        content_words_ids = Lexicon(word_tokenize(article["content"]))
+        content_words_ids = Lexicon(tokenized_content)
         # extract a list of the word ids in content of the article
-        title_words_ids = Lexicon(word_tokenize(article["title"]))
+        title_words_ids = Lexicon(tokenized_title)
         # create an empty dictionary in the forward index for the current article id
         forwardIndex[article_id] = {}
         # set the weightage of each word in the document to 0
@@ -34,4 +38,4 @@ with open("dataset.json", "r") as dataset:
 
 # write the forward index to a json file
 with open("forwardIndex.json", "w") as ForwardIndex:
-    ForwardIndex.write(dumps(forwardIndex))
+    dump(forwardIndex, ForwardIndex)

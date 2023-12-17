@@ -16,7 +16,7 @@ def Lexicon(word_list):
     # returns the list
     return word_ids
 
-def Lexicon(word):
+def lexicon(word):
     # opening the lexicon json file
     with open("lexicon.json", "r") as LexiconFile:
         # loading the file into a dictionary

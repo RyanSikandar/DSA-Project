@@ -1,4 +1,4 @@
-from json import load, dumps
+from json import load, dumps, dump
 from nltk.tokenize import word_tokenize
 
 # a dictionary where the words will be the key and their ids will be the values
@@ -24,13 +24,13 @@ with open("dataset.json", "r") as dataset:
         # '''iterates through each word, gives it an ID, stores it in the lexicon dictionary 
         # if it is not already there, and increments the ID counter by 1 '''
         for word in title:
-            if not word in lexicon:
+            if not word.lower() in lexicon:
                 lexicon[word.lower()] = calculate_word_id(word.lower())
         for word in content:
-            if not word in lexicon:
+            if not word.lower() in lexicon:
                 lexicon[word.lower()] = calculate_word_id(word.lower())
 
 
 
 with open("lexicon.json", "w") as Lexicon:
-    Lexicon.write(dumps(lexicon))
+    dump(lexicon, Lexicon)

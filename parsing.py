@@ -1,5 +1,5 @@
 from os import listdir
-from json import load, dumps, loads
+from json import load, dumps, loads, dump
 
 # Retrieves the list of all the JSON files containing the articles
 JSONS = listdir("articles")
@@ -10,9 +10,12 @@ allArticles = {}
 # a unique integral id to assign to each of the articles
 id = 1
 
+print(JSONS)
+
 for JSON in JSONS:
-    if id >= 10:
-        break
+    print(JSON)
+
+for JSON in JSONS:
     # opens each file one by one
     with open("articles/" + JSON, "r") as article_file:
         # loads the json format in Python Data Structure Format
@@ -20,12 +23,12 @@ for JSON in JSONS:
         # appends the dict to the list containing all of the articles
         for article in articles:
             # add the article to the list containing all of the parsed articles
-            allArticles[id] = article 
+            allArticles[str(id)] = article 
             # increments the id counter
             id += 1
-
-
+    if id >= 10:
+        break
 
 # creates a file to store all the articles and writes the JSON to the file
 with open("dataset.json", "w") as Dataset:
-    Dataset.write(dumps(allArticles))
+    dump(allArticles, Dataset)

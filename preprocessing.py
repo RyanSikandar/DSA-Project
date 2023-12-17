@@ -2,7 +2,7 @@ import nltk
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
 from nltk.stem import PorterStemmer
-from json import load, dumps, loads
+from json import load, dumps, loads, dump
 
 nltk.download('punkt')
 nltk.download('stopwords')
@@ -14,10 +14,12 @@ def process_articles(articles):
     ps = PorterStemmer()
 
     # a list to store the processed articles
-    processed_articles = []
+    processed_articles = {}
+
+    id = 1
 
     # handles all the articles one by one, updates its title and content, and stores it in the list
-    for article in articles:
+    for article in articles.values():
         # Tokenize content and title
         content_tokens = word_tokenize(article['content'])
         title_tokens = word_tokenize(article['title'])
@@ -53,7 +55,9 @@ def process_articles(articles):
         article['content'] = ' '.join(content_stemmed)
         article['title'] = ' '.join(title_stemmed)
 
-        processed_articles.append(article)
+        processed_articles[str(id)] = article
+
+        id += 1
 
     return processed_articles
 
@@ -65,4 +69,4 @@ with open("dataset.json", "r") as article_file:
 processed_articles = process_articles(articles)
 
 with open("dataset.json", "w") as dataset:
-    dataset.write(dumps(processed_articles))
+    dump(processed_articles, dataset)
