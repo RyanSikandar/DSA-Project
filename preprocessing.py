@@ -14,12 +14,12 @@ def process_articles(articles):
     ps = PorterStemmer()
 
     # a list to store the processed articles
-    processed_articles = {}
+    processed_articles = []
 
     id = 1
 
     # handles all the articles one by one, updates its title and content, and stores it in the list
-    for article in articles.values():
+    for article in articles:
         # Tokenize content and title
         content_tokens = word_tokenize(article['content'])
         title_tokens = word_tokenize(article['title'])
@@ -54,8 +54,10 @@ def process_articles(articles):
         # Update article with processed content and title
         article['content'] = ' '.join(content_stemmed)
         article['title'] = ' '.join(title_stemmed)
-
-        processed_articles[str(id)] = article
+        
+        # store the length of the article by adding the lengths of the lists containing content and title
+        article["length"] = len(content_stemmed) + len(title_stemmed)
+        processed_articles.append(article)
 
         id += 1
 
@@ -65,7 +67,7 @@ def process_articles(articles):
 with open("dataset.json", "r") as article_file:
         # loads the json format in Python Data Structure Format
         articles = load(article_file)
-
+                                                                                                                                                                                                         
 processed_articles = process_articles(articles)
 
 with open("dataset.json", "w") as dataset:
