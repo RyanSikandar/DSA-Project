@@ -17,7 +17,7 @@ with open("dataset.json", "r") as dataset:
     # loads the file into a list
     articles = load(dataset)
     # loops through the articles
-    for article in articles.values():
+    for article in articles:
         # stores the words of the title and the content in a list
         title = word_tokenize(article["title"])
         content = word_tokenize(article["content"])
