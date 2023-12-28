@@ -100,3 +100,7 @@ for document_id in document_ids:
 
 # print(document_ids)
 print((end - start) * 1000)
+
+#adding this comment because git is not letting me push just the py files
+
+# adding this comment for the same reason as above
