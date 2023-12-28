@@ -41,7 +41,7 @@ def create_barrels(inverted_index_data):
     # Loop through word IDs in invertedIndex.json
     for word_id, value in inverted_index_data.items():
         # Get last two digits of the word ID
-        barrel_number = word_id[-2:]
+        barrel_number = word_id[-3:]
 
         # Create or update the corresponding barrel file
         barrel_filename = f"barrels/{barrel_number}.json"
