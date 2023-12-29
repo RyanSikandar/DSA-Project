@@ -27,7 +27,7 @@ for JSON in JSONS:
             allArticles.append(article)
             # increments the id counter
             id += 1
-    if id >= 15000:
+    if id >= 100000:
         break
 
 # creates a file to store all the articles and writes the JSON to the file
