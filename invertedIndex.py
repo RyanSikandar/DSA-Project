@@ -1,7 +1,15 @@
 from json import load, dumps
 
+import hashlib
+
+def calculate_word_id(word):
+    word_hash = hashlib.sha256(word.encode()).hexdigest()
+    return int(word_hash, 16)
+
 # create a dictionary to store the inverted index
 invertedIndex = {}
+
+
 
 # open the Forward Index file and read the data into a variable
 with open ("forwardIndex.json", "r") as ForwardIndexFile:
@@ -9,12 +17,13 @@ with open ("forwardIndex.json", "r") as ForwardIndexFile:
     # loop through the key value pairs in the outer dictionary
     for document_id, words_data in forwardIndex.items():
         # for each key value pair in the outer dictionary, loop through the key value pairs in the inner dictionary
-        for word_id, weightageAndHitList in words_data.items():
+        for word, weightage in words_data.items():
             # if the word doesn't already exist in the inverted index, create an empty dictionary against that word id in the inverted index
+            word_id = calculate_word_id(word)
             if word_id not in invertedIndex:
                 invertedIndex[word_id] = {}
             # add the document id and the weightage score in the dictionary of that word id
-            invertedIndex[word_id][document_id] = weightageAndHitList
+            invertedIndex[word_id][document_id] = [weightage, 0]
 
 with open("invertedIndex.json", "w") as InvertedIndexFile:
     InvertedIndexFile.write(dumps(invertedIndex))
